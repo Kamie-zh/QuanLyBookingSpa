@@ -1,0 +1,18 @@
+@startuml
+actor "Admin" as A
+participant "Frontend" as F
+participant "Stats API" as API
+database "MongoDB" as DB
+
+A -> F: Mở tab Thống Kê
+F -> API: GET /api/admin/stats
+API -> DB: Aggregate Bookings by Status (Pending, Confirmed, Cancelled)
+DB --> API: statusCounts
+API -> DB: Aggregate Revenue by Date/Month
+DB --> API: revenueData
+API -> DB: Aggregate Top Services Booked
+DB --> API: serviceStats
+API --> F: 200 OK {statusCounts, revenueData, serviceStats}
+F -> F: Render Recharts (BarChart, PieChart)
+F --> A: Màn hình trực quan
+@enduml

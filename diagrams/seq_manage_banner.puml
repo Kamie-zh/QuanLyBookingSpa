@@ -1,0 +1,21 @@
+@startuml
+actor "Admin" as A
+participant "Frontend" as F
+participant "Banner API" as API
+database "MongoDB" as DB
+
+A -> F: Xem danh sách Banner
+F -> API: GET /api/admin/banners
+API -> DB: find()
+DB --> API: bannerList
+API --> F: 200 OK
+F --> A: Render Component
+
+A -> F: Lưu Banner (Kèm Upload Ảnh)
+F -> API: POST (Multipart) /api/admin/banners
+API -> API: Upload & Save Image URL
+API -> DB: insert() 
+DB --> API: doc
+API --> F: 201 Created
+F --> A: "Thêm Banner Thành Công"
+@enduml

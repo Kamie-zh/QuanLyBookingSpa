@@ -1,0 +1,24 @@
+@startuml
+actor "Admin" as A
+participant "Frontend" as F
+participant "Promotion API" as API
+database "MongoDB" as DB
+participant "Nodemailer" as EM
+
+A -> F: Thêm Voucher Khuyến Mãi
+F -> API: POST /api/admin/promotions
+API -> DB: check duplicate code
+API -> DB: save Promotion
+DB --> API: Success
+API --> F: 201 Created
+
+alt "Gửi Email cho VIP"
+    A -> F: Chọn Voucher -> Gửi Email
+    F -> API: POST /api/admin/promotions/:id/send-email
+    API -> DB: find Users (memberType="VIP")
+    DB --> API: VIP List
+    API -> EM: Gửi thư loạt (Bulk send)
+    API --> F: 200 Chuẩn bị gửi
+    F --> A: "Hoàn Thành Phân Phối Voucher"
+end
+@enduml

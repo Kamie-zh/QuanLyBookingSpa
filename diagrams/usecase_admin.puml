@@ -1,0 +1,55 @@
+@startuml UseCase_Admin
+skinparam usecase {
+  BackgroundColor White
+  BorderColor #333333
+  FontColor #333333
+  StereotypeFontSize 10
+}
+skinparam actor {
+  BackgroundColor White
+  BorderColor #333333
+  FontColor #333333
+}
+skinparam rectangle {
+  BackgroundColor #FAFAFA
+  BorderColor #333333
+}
+
+title Sơ đồ Use Case - Quản trị viên (Admin)
+
+actor "Admin\n(Quản trị)" as Admin
+
+rectangle "Chức năng quản trị" {
+  usecase "UC-02\nĐăng nhập" as UC02
+  usecase "UC-09\nXem danh sách booking" as UC09
+  usecase "UC-10\nCập nhật trạng thái booking\n(pending/confirmed/cancelled)" as UC10
+  usecase "UC-11\nThêm dịch vụ phát sinh\nvào hoá đơn" as UC11
+  usecase "UC-12\nQuản lý khách hàng\n+ xem lịch sử đặt lịch" as UC12
+  usecase "UC-13\nThống kê & báo cáo\n(biểu đồ)" as UC13
+  usecase "UC-15\nQuản lý banner\n(CRUD + upload ảnh)" as UC15
+
+  usecase "Quản lý dịch vụ\n(CRUD + upload ảnh)" as ManageService
+  usecase "Quản lý khuyến mãi\n(Promotion)" as ManagePromo
+
+  usecase "Gửi email thông báo" as EmailNotify
+  usecase "Kiểm tra quy tắc\ntrạng thái" as StatusRule
+  usecase "Cập nhật hoá đơn\n(tổng giá + thời lượng)" as UpdateBill
+  usecase "Mở Drawer\nlịch sử booking" as DrawerHistory
+}
+
+Admin --> UC02
+Admin --> UC09
+Admin --> UC10
+Admin --> UC11
+Admin --> UC12
+Admin --> UC13
+Admin --> UC15
+Admin --> ManageService
+Admin --> ManagePromo
+
+UC10 ..> StatusRule : <<include>>
+UC10 ..> EmailNotify : <<include>>
+UC11 ..> UpdateBill : <<include>>
+UC12 ..> DrawerHistory : <<extend>>
+
+@enduml

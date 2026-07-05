@@ -1,0 +1,29 @@
+@startuml
+skinparam participantPadding 20
+skinparam boxPadding 10
+
+actor "User" as U
+participant "Frontend" as F
+participant "Auth API" as API
+database "MongoDB" as DB
+
+U -> F: Nhập Email & Mật Khẩu
+F -> API: POST /api/auth/login
+API -> DB: findOne({ email })
+DB --> API: trả về User
+alt "User không tồn tại"
+    API --> F: 401 Unauthorized
+    F --> U: Báo lỗi email sai
+else "User tồn tại"
+    API -> API: comparePassword(password)
+    alt "Sai mật khẩu"
+        API --> F: 401 Unauthorized
+        F --> U: Báo lỗi sai mật khẩu
+    else "Đúng mật khẩu"
+        API -> API: sign JWT
+        API --> F: 200 OK (Token + User Info)
+        F -> F: Lưu Token vào LocalStorage
+        F --> U: Chuyển hướng Dashboard/Trang chủ
+    end
+end
+@enduml

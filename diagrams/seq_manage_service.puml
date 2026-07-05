@@ -1,0 +1,20 @@
+@startuml
+actor "Admin" as A
+participant "Frontend" as F
+participant "Service API" as API
+database "MongoDB" as DB
+
+A -> F: Xem danh sách Dịch Vụ
+F -> API: GET /api/services
+API -> DB: find()
+DB --> API: serviceList
+API --> F: 200 OK
+F --> A: Render Component
+
+A -> F: Thêm / Sửa Dịch Vụ
+F -> API: POST / PUT /api/admin/services
+API -> DB: save() / update()
+DB --> API: Result
+API --> F: 201 / 200 OK
+F --> A: Hiển thị "Thành công" và Reload
+@enduml

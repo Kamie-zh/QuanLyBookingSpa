@@ -1,0 +1,20 @@
+@startuml
+actor "Admin" as A
+participant "Frontend" as F
+participant "Users API" as API
+database "MongoDB" as DB
+
+A -> F: Xem danh sách Khách Hàng (UserList)
+F -> API: GET /api/admin/users
+API -> DB: Aggregate Users (count Bookings, total Revenue)
+DB --> API: userList (with memberType, metrics)
+API --> F: 200 OK
+F --> A: Hiển thị Bảng User
+
+A -> F: Click "Lịch Sử Đặt" (Drawer)
+F -> API: GET /api/admin/users/:id/bookings
+API -> DB: find( userId ).populate(services)
+DB --> API: userBookings
+API --> F: 200 OK
+F --> A: Xổ ra Drawer Lịch hẹn
+@enduml

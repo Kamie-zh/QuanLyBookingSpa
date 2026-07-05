@@ -1,0 +1,25 @@
+@startuml
+actor "User" as U
+participant "Frontend" as F
+participant "Booking API" as API
+database "MongoDB" as DB
+participant "Nodemailer" as EM
+
+U -> F: Chọn Service, Ngày, Giờ (slot)
+U -> F: Nhập form (bỏ qua nếu đã lưu)
+F -> API: POST /api/bookings
+API -> API: Verify Token (JWT)
+API -> DB: Check trùng lịch (trùng startTime, endTime)\n + 30 phút Buffer Time
+DB --> API: Lịch đã đặt trong ngày
+alt "Có Slot Bị Trùng"
+    API --> F: 400 Bad Request
+    F --> U: Hiển thị lỗi "Khung giờ đã kín"
+else "Kha Dụng"
+    API -> DB: Create Booking (status: pending)
+    API -> DB: Create EstimatedBill (tính tổng tiền & thời gian)
+    DB --> API: Trả về kết quả
+    API -> EM: trigger sendEmail() xác nhận
+    API --> F: 200 OK
+    F --> U: Thông báo đặt lịch thành công
+end
+@enduml

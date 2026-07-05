@@ -1,0 +1,19 @@
+@startuml
+actor "Cron_Scheduler" as Cron
+participant "AutoConfirm API" as API
+database "MongoDB" as DB
+participant "Nodemailer" as EM
+
+Cron -> API: GET /api/cron/auto-confirm (Mỗi 2 phút)
+API -> DB: find Bookings\n(status: pending, startTime <= now + 1 hours)
+DB --> API: targetBookings
+
+loop "Cho mỗi booking"
+    API -> DB: update(status = 'confirmed')
+    DB --> API: updated
+    API -> EM: sendAutoConfirmEmail(user, bookingInfo)
+    EM --> API: Email sent
+end
+
+API --> Cron: 200 OK (Thống kê số lịch hẹn đã confirm tự động)
+@enduml

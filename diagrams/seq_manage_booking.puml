@@ -1,0 +1,22 @@
+@startuml
+actor "Admin" as A
+participant "Frontend" as F
+participant "Booking API" as API
+database "MongoDB" as DB
+participant "Nodemailer" as EM
+
+A -> F: Xem danh sách Lịch Hẹn
+F -> API: GET /api/admin/bookings
+API -> DB: find() & populate(user, services)
+DB --> API: bookList
+API --> F: 200 OK (data)
+F --> A: Hiển thị danh sách
+
+A -> F: Click Confirm / Cancel
+F -> API: PATCH /api/admin/bookings/:id/status
+API -> DB: findByIdAndUpdate(status)
+DB --> API: updatedBooking
+API -> EM: Gửi Email tương ứng\n(Xác nhận / Từ chối)
+API --> F: 200 OK
+F --> A: Thông báo thành công & reload
+@enduml

@@ -1,0 +1,58 @@
+@startuml
+class User {
+  +String name
+  +String email
+  +String password
+  +String phone
+  +String role
+  +String memberType
+  +comparePassword()
+}
+
+class Service {
+  +String name
+  +String serviceType
+  +String description
+  +Number duration
+  +Number price
+  +String imageUrl
+  +Boolean isActive
+}
+
+class Booking {
+  +ObjectId user
+  +ObjectId[] services
+  +Date bookingDate
+  +String startTime
+  +String endTime
+  +Number totalDuration
+  +Number totalPrice
+  +String status
+  +String note
+}
+
+class EstimatedBill {
+  +ObjectId booking
+  +ObjectId user
+  +ObjectId[] services
+  +Number totalDuration
+  +Number totalAmount
+  +String status
+}
+
+class Promotion {
+  +String code
+  +String title
+  +String discountType
+  +Number discountValue
+  +Date startDate
+  +Date endDate
+  +String targetMember
+}
+
+User "1" -- "*" Booking : places >
+Booking "1" -- "*" Service : includes >
+Booking "1" -- "1" EstimatedBill : generates >
+EstimatedBill "1" -- "*" Service : details >
+User "1" -- "*" EstimatedBill : pays >
+@enduml

@@ -1,0 +1,235 @@
+@import "tailwindcss";
+
+:root {
+  --gold: #D4AF37;
+  --gold-dark: #8B6F47;
+  --gold-light: #B8956A;
+  --cream: #FDFBF7;
+  --cream-dark: #F5F1E8;
+  --text-dark: #2D2A26;
+  --text-muted: #8B8579;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--cream);
+  color: var(--text-dark);
+}
+
+/* Utility Classes */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  background: transparent;
+  color: var(--gold);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 50px;
+  border: 2px solid var(--gold);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 14px;
+}
+.btn-secondary:hover {
+  background: var(--gold);
+  color: white;
+  transform: scale(1.05);
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.4s ease;
+  border: 1px solid transparent;
+}
+.card:hover {
+  box-shadow: 0 12px 40px rgba(212, 175, 55, 0.15);
+  border-color: var(--gold);
+  transform: translateY(-5px);
+}
+
+.gold-text {
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.gold-border {
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.input-field {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid #E5E0D8;
+  border-radius: 10px;
+  font-size: 15px;
+  background: white;
+  transition: all 0.3s ease;
+  color: var(--text-dark);
+}
+.input-field:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
+}
+.input-field::placeholder {
+  color: #C4BEB5;
+}
+
+.badge-pending {
+  background: #FFF3CD;
+  color: #856404;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-confirmed {
+  background: #D4EDDA;
+  color: #155724;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.badge-cancelled {
+  background: #F8D7DA;
+  color: #721C24;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(212, 175, 55, 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Container */
+.container-custom {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ===================== */
+/* RESPONSIVE - TABLET   */
+/* ===================== */
+@media (min-width: 768px) {
+  .container-custom {
+    padding: 0 40px;
+  }
+
+  .btn-primary {
+    padding: 14px 36px;
+    font-size: 15px;
+  }
+
+  .btn-secondary {
+    padding: 14px 36px;
+    font-size: 15px;
+  }
+
+  .input-field {
+    padding: 16px 20px;
+    font-size: 16px;
+  }
+}
+
+/* ===================== */
+/* RESPONSIVE - DESKTOP  */
+/* ===================== */
+@media (min-width: 1024px) {
+  .container-custom {
+    padding: 0 60px;
+  }
+
+  .btn-primary {
+    padding: 16px 40px;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+  }
+
+  .btn-secondary {
+    padding: 16px 40px;
+    font-size: 15px;
+    letter-spacing: 0.12em;
+  }
+
+  .card {
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+  .card:hover {
+    box-shadow: 0 16px 50px rgba(212, 175, 55, 0.18);
+    transform: translateY(-8px);
+  }
+
+  .input-field {
+    padding: 16px 22px;
+    font-size: 16px;
+    border-radius: 12px;
+  }
+}
+
+/* ========================= */
+/* RESPONSIVE - LARGE DESKTOP */
+/* ========================= */
+@media (min-width: 1440px) {
+  .container-custom {
+    padding: 0 80px;
+    max-width: 1400px;
+  }
+}

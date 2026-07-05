@@ -1,0 +1,57 @@
+@startuml UseCase_User
+skinparam usecase {
+  BackgroundColor White
+  BorderColor #333333
+  FontColor #333333
+  StereotypeFontSize 10
+}
+skinparam actor {
+  BackgroundColor White
+  BorderColor #333333
+  FontColor #333333
+}
+skinparam rectangle {
+  BackgroundColor #FAFAFA
+  BorderColor #333333
+}
+
+title Sơ đồ Use Case - Người dùng (User)
+
+actor "User\n(Người dùng)" as User
+
+rectangle "Chức năng người dùng" {
+  usecase "UC-02\nĐăng nhập" as UC02
+  usecase "UC-03\nXem danh sách dịch vụ" as UC03
+  usecase "UC-04\nXem chi tiết dịch vụ" as UC04
+  usecase "UC-05\nTra cứu lịch trống\ntheo ngày" as UC05
+  usecase "UC-06\nĐặt lịch\n(chọn dịch vụ + ngày + giờ)" as UC06
+  usecase "UC-07\nXem lịch hẹn của tôi" as UC07
+  usecase "UC-08\nHuỷ lịch hẹn" as UC08
+  usecase "UC-14\nXem banner trên Home" as UC14
+
+  usecase "Tạo hoá đơn dự tính\n(EstimatedBill)" as CreateBill
+  usecase "Gửi email xác nhận" as EmailConfirm
+  usecase "Xét nâng cấp VIP\n(VIP Checker)" as VIPCheck
+  usecase "Kiểm tra trùng lịch" as CheckConflict
+  usecase "Kiểm tra điều kiện huỷ\n(trước 12 giờ)" as CheckCancel
+}
+
+User --> UC02
+User --> UC03
+User --> UC04
+User --> UC05
+User --> UC06
+User --> UC07
+User --> UC08
+User --> UC14
+
+UC06 ..> CreateBill : <<include>>
+UC06 ..> EmailConfirm : <<include>>
+UC06 ..> VIPCheck : <<include>>
+UC06 ..> CheckConflict : <<include>>
+UC08 ..> CheckCancel : <<include>>
+UC08 ..> EmailConfirm : <<include>>
+
+UC03 <.. UC04 : <<extend>>
+
+@enduml
