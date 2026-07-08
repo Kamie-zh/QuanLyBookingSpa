@@ -13,6 +13,8 @@ const UserSchema = new mongoose.Schema({
   totalEstimatedAmount: { type: Number, default: 0 },
   resetToken: { type: String },
   resetTokenExpiry: { type: Date },
+  resetOtp: { type: String },
+  resetOtpExpiry: { type: Date },
 }, { timestamps: true });
 
 export default mongoose.models.User || mongoose.model('User', UserSchema);
