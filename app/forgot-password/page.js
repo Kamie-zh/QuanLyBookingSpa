@@ -48,22 +48,22 @@ export default function ForgotPasswordPage() {
         style={{ background: 'white', borderRadius: '20px', padding: '50px 40px', maxWidth: '440px', width: '100%', boxShadow: '0 20px 60px rgba(0,0,0,0.08)', border: '1px solid rgba(212,175,55,0.15)' }}>
         <div style={{ textAlign: 'center', marginBottom: '35px' }}>
           <img src="/logo.png" alt="Luxe Beauty" style={{ width: '60px', height: '60px', borderRadius: '50%', margin: '0 auto 15px', display: 'block' }} />
-          <h1 style={{ fontFamily: 'var(--font-playfair), serif', fontSize: '28px', marginTop: '10px' }}>Quen Mat Khau</h1>
-          <p style={{ color: '#8B8579', fontSize: '14px', marginTop: '8px' }}>Nhap email de nhan ma OTP dat lai mat khau</p>
+          <h1 style={{ fontFamily: 'var(--font-playfair), serif', fontSize: '28px', marginTop: '10px' }}>Quên Mật Khẩu</h1>
+          <p style={{ color: '#8B8579', fontSize: '14px', marginTop: '8px' }}>Nhập email để nhận mã OTP đặt lại mật khẩu</p>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
           <div>
             <label style={{ fontSize: '13px', fontWeight: '600', color: '#8B6F47', marginBottom: '6px', display: 'block' }}>Email</label>
-            <input type="email" className="input-field" placeholder="Nhap email da dang ky" value={email} onChange={e => setEmail(e.target.value)} required />
+            <input type="email" className="input-field" placeholder="Nhập email đã đăng ký" value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
           <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="btn-primary" style={{ width: '100%', marginTop: '5px' }} disabled={loading}>
-            {loading ? 'Dang xu ly...' : 'Send OTP'}
+            {loading ? 'Đang xử lý...' : 'Gửi OTP'}
           </motion.button>
         </form>
 
         <p style={{ textAlign: 'center', marginTop: '25px', fontSize: '14px', color: '#8B8579' }}>
-          <Link href="/login" style={{ color: '#D4AF37', fontWeight: '600', textDecoration: 'none' }}>Back to Login</Link>
+          <Link href="/login" style={{ color: '#D4AF37', fontWeight: '600', textDecoration: 'none' }}>Trở về Đăng nhập</Link>
         </p>
       </motion.div>
     </div>

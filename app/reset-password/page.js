@@ -75,7 +75,7 @@ function ResetPasswordContent() {
           <img src="/logo.png" alt="Luxe Beauty" style={{ width: '60px', height: '60px', borderRadius: '50%', margin: '0 auto 15px', display: 'block' }} />
           <h1 style={{ fontFamily: 'var(--font-playfair), serif', fontSize: '28px', marginTop: '10px' }}>Reset Password</h1>
           <p style={{ color: '#8B8579', fontSize: '14px', marginTop: '8px' }}>
-            {done ? 'Password reset successfully' : 'Enter your email, OTP code, and new password'}
+            {done ? 'Password reset successfully' : 'Nhập email, mã OTP, và mật khẩu mới'}
           </p>
         </div>
 
@@ -89,19 +89,19 @@ function ResetPasswordContent() {
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             <div>
               <label style={{ fontSize: '13px', fontWeight: '600', color: '#8B6F47', marginBottom: '6px', display: 'block' }}>Email</label>
-              <input type="email" className="input-field" placeholder="Enter your email" value={email} onChange={e => setEmail(e.target.value)} required />
+              <input type="email" className="input-field" placeholder="Nhập email của bạn" value={email} onChange={e => setEmail(e.target.value)} required />
             </div>
             <div>
-              <label style={{ fontSize: '13px', fontWeight: '600', color: '#8B6F47', marginBottom: '6px', display: 'block' }}>OTP Code</label>
-              <input className="input-field" placeholder="Enter 6-digit OTP" value={otp} onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))} required inputMode="numeric" maxLength={6} />
+              <label style={{ fontSize: '13px', fontWeight: '600', color: '#8B6F47', marginBottom: '6px', display: 'block' }}>Mã OTP</label>
+              <input className="input-field" placeholder="Nhập mã OTP 6 chữ số" value={otp} onChange={e => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))} required inputMode="numeric" maxLength={6} />
             </div>
             <div>
               <label style={{ fontSize: '13px', fontWeight: '600', color: '#8B6F47', marginBottom: '6px', display: 'block' }}>New Password</label>
-              <input type="password" className="input-field" placeholder="At least 6 characters" value={password} onChange={e => setPassword(e.target.value)} required minLength={6} />
+              <input type="password" className="input-field" placeholder="Ít nhất 6 ký tự" value={password} onChange={e => setPassword(e.target.value)} required minLength={6} />
             </div>
             <div>
               <label style={{ fontSize: '13px', fontWeight: '600', color: '#8B6F47', marginBottom: '6px', display: 'block' }}>Confirm Password</label>
-              <input type="password" className="input-field" placeholder="Confirm new password" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required minLength={6} />
+              <input type="password" className="input-field" placeholder="Xác nhận mật khẩu mới" value={confirmPassword} onChange={e => setConfirmPassword(e.target.value)} required minLength={6} />
             </div>
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} type="submit" className="btn-primary" style={{ width: '100%', marginTop: '5px' }} disabled={loading}>
               {loading ? 'Processing...' : 'Reset Password'}
@@ -111,7 +111,7 @@ function ResetPasswordContent() {
 
         <div style={{ display: 'flex', justifyContent: 'space-between', gap: '14px', marginTop: '25px', fontSize: '14px' }}>
           <Link href="/forgot-password" style={{ color: '#D4AF37', fontWeight: '600', textDecoration: 'none' }}>Resend OTP</Link>
-          <Link href="/login" style={{ color: '#D4AF37', fontWeight: '600', textDecoration: 'none' }}>Back to Login</Link>
+          <Link href="/login" style={{ color: '#D4AF37', fontWeight: '600', textDecoration: 'none' }}>Trở về Đăng nhập</Link>
         </div>
       </motion.div>
     </div>
