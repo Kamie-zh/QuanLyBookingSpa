@@ -12,19 +12,37 @@ function hashOtp(otp) {
 export async function POST(request) {
   try {
     await connectDB();
-    const { email, otp, password, confirmPassword } = await request.json();
+    const body = await request.json();
+    const {
+      email,
+      otp,
+      password,
+      newPassword,
+      confirmPassword,
+      confirmNewPassword,
+    } = body;
     const normalizedEmail = email?.trim().toLowerCase();
     const normalizedOtp = otp?.trim();
+    const finalPassword = password || newPassword;
+    const finalConfirmPassword = confirmPassword || confirmNewPassword;
 
-    if (!normalizedEmail || !normalizedOtp || !password || !confirmPassword) {
-      return NextResponse.json({ message: 'Please fill in all required fields' }, { status: 400 });
+    const missingFields = [];
+    if (!normalizedEmail) missingFields.push('email');
+    if (!normalizedOtp) missingFields.push('otp');
+    if (!finalPassword) missingFields.push('new password');
+    if (!finalConfirmPassword) missingFields.push('confirm password');
+
+    if (missingFields.length > 0) {
+      return NextResponse.json({
+        message: `Please fill in all required fields: ${missingFields.join(', ')}`,
+      }, { status: 400 });
     }
 
-    if (password !== confirmPassword) {
+    if (finalPassword !== finalConfirmPassword) {
       return NextResponse.json({ message: 'Passwords do not match' }, { status: 400 });
     }
 
-    if (password.length < 6) {
+    if (finalPassword.length < 6) {
       return NextResponse.json({ message: 'Password must be at least 6 characters' }, { status: 400 });
     }
 
@@ -38,7 +56,7 @@ export async function POST(request) {
       return NextResponse.json({ message: 'Invalid or expired OTP' }, { status: 400 });
     }
 
-    user.password = await bcrypt.hash(password, 12);
+    user.password = await bcrypt.hash(finalPassword, 12);
     user.resetOtp = undefined;
     user.resetOtpExpiry = undefined;
     user.resetToken = undefined;
